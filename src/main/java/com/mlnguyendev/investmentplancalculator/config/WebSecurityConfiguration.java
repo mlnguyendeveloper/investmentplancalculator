@@ -8,8 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -29,9 +29,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin").hasAuthority("ROLE_ADMIN")
 				.antMatchers("/user").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
 				.antMatchers("/").permitAll()
+				.antMatchers("/hello").permitAll()
 			.and()
-				.formLogin();
+				.formLogin()
+			.and()
+				.logout().permitAll()
+			.and()
+				.exceptionHandling().accessDeniedPage("/access-denied");
 	}
+
 	
 	@Bean
 	public PasswordEncoder getPasswordEncoder() { return new BCryptPasswordEncoder(); }

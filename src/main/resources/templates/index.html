@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Home landing page</title>
 </head>
 <body>
-
+	<h3>Home page</h3>
+	
+	<br>
+	<hr>
+	<a th:href="@{/user}">User page</a>
+	<br>
+	<a th:href="@{/admin}">Admin page</a>
+	<form action="#" th:action="@{/logout}"  method="post">
+    	<input type="submit" value="log out" />
+	</form>
 </body>
 </html>
