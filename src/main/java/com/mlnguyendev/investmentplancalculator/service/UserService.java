@@ -3,11 +3,14 @@ package com.mlnguyendev.investmentplancalculator.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mlnguyendev.investmentplancalculator.dao.IUserRepository;
 import com.mlnguyendev.investmentplancalculator.entity.User;
+import com.mlnguyendev.investmentplancalculator.entity.UserDTO;
 
 @Service
 public class UserService implements IUserService {
@@ -58,6 +61,13 @@ public class UserService implements IUserService {
 		}
 		
 		return user;
+	}
+
+	@Override
+	@Transactional
+	public User registerNewUser(UserDTO userDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
