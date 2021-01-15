@@ -1,23 +1,32 @@
 package com.mlnguyendev.investmentplancalculator.controllers;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class SampleController {
 	
 	@GetMapping("/")
 	public String home() {
-		return("<h1>Welcome</h1>");
+		return "index";
+	}
+	
+	@GetMapping("/hello")
+	public String sayHello(Model theModel) {
+		
+		theModel.addAttribute("theDate", new java.util.Date());
+		
+		return "helloworld";
 	}
 	
 	@GetMapping("/user")
 	public String user() {
-		return ("<h1>Welcome User</h1>");
+		return "user-test-page";
 	}
 	
 	@GetMapping("/admin")
 	public String admin() {
-		return ("<h1>Welcome Admin</h1>");
+		return "admin-test-page";
 	}
 }
