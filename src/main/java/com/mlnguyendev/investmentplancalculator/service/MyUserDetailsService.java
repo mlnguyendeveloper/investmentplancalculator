@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.mlnguyendev.investmentplancalculator.dao.UserRepository;
+import com.mlnguyendev.investmentplancalculator.dao.IUserRepository;
 import com.mlnguyendev.investmentplancalculator.entity.MyUserDetails;
 import com.mlnguyendev.investmentplancalculator.entity.User;
 
@@ -16,7 +16,7 @@ import com.mlnguyendev.investmentplancalculator.entity.User;
 public class MyUserDetailsService implements UserDetailsService{
 
 	@Autowired
-	UserRepository userRepository;
+	IUserRepository userRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
