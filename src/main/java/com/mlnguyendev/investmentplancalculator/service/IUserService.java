@@ -13,6 +13,6 @@ public interface IUserService {
 	public void save(User user);
 	public void deleteById(int id);
 	
-	public User registerNewUser(UserDTO userDTO) 
+	public User register(UserDTO userDTO) 
 			throws Exception;
 }
