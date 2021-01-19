@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.mlnguyendev.investmentplancalculator.dao.IAuthorityRepository;
 import com.mlnguyendev.investmentplancalculator.dao.IUserRepository;
 import com.mlnguyendev.investmentplancalculator.model.User;
 import com.mlnguyendev.investmentplancalculator.model.UserDTO;
