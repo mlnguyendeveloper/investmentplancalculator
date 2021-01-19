@@ -23,13 +23,15 @@ public class User {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Column(name="username")
+	@Column(name="username",
+			unique=true)
 	private String userName;
 	
 	@Column(name="password")
 	private String password;
 	
-	@Column(name="email")
+	@Column(name="email",
+			unique=true)
 	private String email;
 	
 	@ManyToMany(fetch=FetchType.EAGER,

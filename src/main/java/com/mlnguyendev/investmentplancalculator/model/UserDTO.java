@@ -1,20 +1,24 @@
 package com.mlnguyendev.investmentplancalculator.model;
 
-import com.sun.istack.NotNull;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 public class UserDTO {
 	
-    @NotNull
+    @NotEmpty
     private String firstName;
     
-    @NotNull
+    @NotEmpty
     private String lastName;
     
-    @NotNull
+    @NotEmpty
     private String password;
+    
+    @NotEmpty
     private String matchingPassword;
     
-    @NotNull
+    @NotEmpty
+    @Email
     private String email;
 
 	public String getFirstName() {
