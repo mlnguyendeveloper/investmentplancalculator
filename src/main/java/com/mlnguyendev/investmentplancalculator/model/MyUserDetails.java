@@ -1,4 +1,4 @@
-package com.mlnguyendev.investmentplancalculator.entity;
+package com.mlnguyendev.investmentplancalculator.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.mlnguyendev.investmentplancalculator.dao.IUserRepository;
-import com.mlnguyendev.investmentplancalculator.entity.MyUserDetails;
-import com.mlnguyendev.investmentplancalculator.entity.User;
+import com.mlnguyendev.investmentplancalculator.model.MyUserDetails;
+import com.mlnguyendev.investmentplancalculator.model.User;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService{

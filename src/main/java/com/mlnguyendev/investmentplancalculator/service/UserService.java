@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mlnguyendev.investmentplancalculator.dao.IUserRepository;
-import com.mlnguyendev.investmentplancalculator.entity.User;
-import com.mlnguyendev.investmentplancalculator.entity.UserDTO;
+import com.mlnguyendev.investmentplancalculator.model.User;
+import com.mlnguyendev.investmentplancalculator.model.UserDTO;
 
 @Service
 public class UserService implements IUserService {

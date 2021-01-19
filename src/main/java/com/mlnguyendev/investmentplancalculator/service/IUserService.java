@@ -2,8 +2,8 @@ package com.mlnguyendev.investmentplancalculator.service;
 
 import java.util.List;
 
-import com.mlnguyendev.investmentplancalculator.entity.User;
-import com.mlnguyendev.investmentplancalculator.entity.UserDTO;
+import com.mlnguyendev.investmentplancalculator.model.User;
+import com.mlnguyendev.investmentplancalculator.model.UserDTO;
 
 public interface IUserService {
 	
