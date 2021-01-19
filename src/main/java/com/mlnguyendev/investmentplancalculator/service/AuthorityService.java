@@ -28,5 +28,9 @@ public class AuthorityService implements IAuthorityService {
 		
 		return authority;
 	}
+	
+	public static enum RoleType{
+		USER, ADMIN, MANAGER
+	}
 
 }
