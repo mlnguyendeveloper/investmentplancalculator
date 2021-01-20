@@ -8,5 +8,5 @@ import com.mlnguyendev.investmentplancalculator.model.User;
 
 
 public interface IUserRepository extends JpaRepository<User, Integer> {
-	Optional<User> findByUserName(String userName);
+	Optional<User> findByUsername(String username);
 }

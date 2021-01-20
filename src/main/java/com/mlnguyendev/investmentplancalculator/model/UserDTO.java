@@ -4,12 +4,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 public class UserDTO {
-	
-    @NotEmpty
-    private String firstName;
-    
-    @NotEmpty
-    private String lastName;
+
+	@NotEmpty
+    private String username;
     
     @NotEmpty
     private String password;
@@ -20,21 +17,25 @@ public class UserDTO {
     @NotEmpty
     @Email
     private String email;
-
-	public String getFirstName() {
-		return firstName;
+    
+	public UserDTO() {
+		
+	}
+	
+    public UserDTO(@NotEmpty String username, @NotEmpty String password, @NotEmpty String matchingPassword,
+			@NotEmpty @Email String email) {
+		this.username = username;
+		this.password = password;
+		this.matchingPassword = matchingPassword;
+		this.email = email;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public String getUsername() {
+		return username;
 	}
 
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -60,6 +61,11 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-    
+
+	@Override
+	public String toString() {
+		return "UserDTO [username=" + username + ", password=" + password + ", matchingPassword=" + matchingPassword
+				+ ", email=" + email + "]";
+	}
     
 }

@@ -25,7 +25,7 @@ public class User {
 	
 	@Column(name="username",
 			unique=true)
-	private String userName;
+	private String username;
 	
 	@Column(name="password")
 	private String password;
@@ -45,20 +45,31 @@ public class User {
 			inverseJoinColumns=@JoinColumn(name="authority_id"))
 	private List<Authority> authorities;
 
+	@Column(name="enabled")
+	private boolean enabled;
+	
+	public User() {
+		
+	}
+
+	public User(String username, String password, String email, List<Authority> authorities, boolean enabled) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.authorities = authorities;
+		this.enabled = enabled;
+	}
+
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public String getUsername() {
+		return username;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {
@@ -76,19 +87,33 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
 	public List<Authority> getAuthorities() {
 		return authorities;
 	}
-
+	
 	public void setAuthorities(List<Authority> authorities) {
 		this.authorities = authorities;
 	}
 	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public void addAuthority(Authority authority) {
 		if (authorities == null) {
 			authorities = new ArrayList<>();
 		}
 		authorities.add(authority);
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + username + ", password=" + password + ", email=" + email
+				+ ", authorities=" + authorities + "]";
 	}
 }

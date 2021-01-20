@@ -74,5 +74,4 @@ public class Authority {
 		
 		users.add(user);
 	}
-	
 }

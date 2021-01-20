@@ -57,8 +57,8 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public User findByUsername(String userName) {
-		Optional<User> result = userRepository.findByUserName(userName);
+	public User findByUsername(String username) {
+		Optional<User> result = userRepository.findByUsername(username);
 		
 		User user = null;
 		
@@ -78,8 +78,13 @@ public class UserService implements IUserService {
 		BeanUtils.copyProperties(userDTO, user);
 		encodePassword(userDTO, user);
 		
-		//Newly registered users sould be ROLE_USER by default
-		user.addAuthority(authorityService.findById(AuthorityService.RoleType.USER.ordinal()));
+		//Newly registered users should be ROLE_USER by default
+		user.addAuthority(authorityService.findById(AuthorityService.RoleType.USER.getID()));
+		
+		//Newly registered users should be enabled by default
+		user.setEnabled(true);
+		
+		//Finally saves the user
 		userRepository.save(user);
 		
 		return user;
