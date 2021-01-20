@@ -8,22 +8,22 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.mlnguyendev.investmentplancalculator.dao.UserRepository;
-import com.mlnguyendev.investmentplancalculator.entity.MyUserDetails;
-import com.mlnguyendev.investmentplancalculator.entity.User;
+import com.mlnguyendev.investmentplancalculator.dao.IUserRepository;
+import com.mlnguyendev.investmentplancalculator.model.MyUserDetails;
+import com.mlnguyendev.investmentplancalculator.model.User;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService{
 
 	@Autowired
-	UserRepository userRepository;
+	IUserRepository userRepository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-		Optional<User> user = userRepository.findByUserName(userName);
+		Optional<User> user = userRepository.findByUsername(username);
 		
-		user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + userName));
+		user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + username));
 		
 		return user.map(MyUserDetails::new).get();
 	}

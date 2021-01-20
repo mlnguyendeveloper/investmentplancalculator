@@ -3,9 +3,16 @@ package com.mlnguyendev.investmentplancalculator.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import com.mlnguyendev.investmentplancalculator.service.UserService;
 
 @Controller
-public class SampleController {
+public class HomeController {
+	
+	UserService userService;
+	
+	public HomeController(UserService userService) {
+		this.userService = userService;
+	}
 	
 	@GetMapping("/")
 	public String home() {
@@ -29,4 +36,5 @@ public class SampleController {
 	public String admin() {
 		return "admin-test-page";
 	}
+	
 }

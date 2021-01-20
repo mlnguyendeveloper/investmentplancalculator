@@ -1,13 +1,97 @@
 package com.mlnguyendev.investmentplancalculator.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.mlnguyendev.investmentplancalculator.entity.User;
+import javax.transaction.Transactional;
 
-public interface UserService {
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.mlnguyendev.investmentplancalculator.dao.IUserRepository;
+import com.mlnguyendev.investmentplancalculator.model.User;
+import com.mlnguyendev.investmentplancalculator.model.UserDTO;
+
+@Service
+public class UserService implements IUserService {
+
+	private IUserRepository userRepository;
+	private AuthorityService authorityService;
+	private PasswordEncoder passwordEncoder;
 	
-	public List<User> findAll();
-	public User findById(int id);
-	public void save(User user);
-	public void deleteById(int id);
+	@Autowired
+	public UserService(IUserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityService authorityService) {
+		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
+		this.authorityService = authorityService;
+	}
+	
+	@Override
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
+
+	@Override
+	public User findById(int id) {
+		Optional<User> result = userRepository.findById(id);
+		
+		User user = null;
+		
+		if (result.isPresent()) {
+			user = result.get();
+		}
+		
+		return user;
+	}
+
+	@Override
+	public void save(User user) {
+		userRepository.save(user);
+	}
+
+	@Override
+	public void deleteById(int id) {
+		userRepository.deleteById(id);
+	}
+
+	@Override
+	public User findByUsername(String username) {
+		Optional<User> result = userRepository.findByUsername(username);
+		
+		User user = null;
+		
+		if (result.isPresent()) {
+			user = result.get();
+		}
+		
+		return user;
+	}
+
+	@Override
+	@Transactional
+	public User register(UserDTO userDTO) throws Exception {
+		User user = new User();
+		
+		//Set properties from the userDTO
+		BeanUtils.copyProperties(userDTO, user);
+		encodePassword(userDTO, user);
+		
+		//Newly registered users should be ROLE_USER by default
+		user.addAuthority(authorityService.findById(AuthorityService.RoleType.USER.getID()));
+		
+		//Newly registered users should be enabled by default
+		user.setEnabled(true);
+		
+		//Finally saves the user
+		userRepository.save(user);
+		
+		return user;
+	}
+	
+	private void encodePassword(UserDTO userDTO, User user) {
+		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+	}
+
 }

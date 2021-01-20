@@ -1,4 +1,4 @@
-package com.mlnguyendev.investmentplancalculator.entity;
+package com.mlnguyendev.investmentplancalculator.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,6 +10,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class MyUserDetails implements UserDetails{
 
+	/**
+	 * Default
+	 */
+	private static final long serialVersionUID = 1L;
 	private String userName;
 	private String password;
 	private List<GrantedAuthority> authorities;
@@ -18,7 +22,7 @@ public class MyUserDetails implements UserDetails{
 	}
 	
 	public MyUserDetails(User user) {
-		this.userName = user.getUserName();
+		this.userName = user.getUsername();
 		this.password = user.getPassword();
 		
 		this.authorities = new ArrayList<>();
