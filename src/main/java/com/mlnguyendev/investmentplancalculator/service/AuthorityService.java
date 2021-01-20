@@ -32,7 +32,17 @@ public class AuthorityService implements IAuthorityService {
 	}
 	
 	public static enum RoleType{
-		USER, ADMIN, MANAGER
+		USER(1), ADMIN(2), MANAGER(3);
+		
+		private int id;
+		
+		RoleType(int id){
+			this.id = id;
+		}
+		
+		public int getID() {
+			return id;
+		}
 	}
 
 }
