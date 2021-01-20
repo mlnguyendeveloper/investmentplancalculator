@@ -3,10 +3,12 @@ package com.mlnguyendev.investmentplancalculator.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mlnguyendev.investmentplancalculator.dao.IAuthorityRepository;
 import com.mlnguyendev.investmentplancalculator.model.Authority;
 
+@Service
 public class AuthorityService implements IAuthorityService {
 
 	IAuthorityRepository authorityRepository;
