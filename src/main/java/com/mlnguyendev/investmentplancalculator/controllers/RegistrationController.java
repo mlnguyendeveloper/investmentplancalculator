@@ -29,11 +29,10 @@ public class RegistrationController {
 		return "authentication/registration";
 	}
 	
-	@PostMapping("/registration")
+	@PostMapping("/register")
 	public String userRegistration(@Valid UserDTO userDTO,
 										BindingResult bindingResult,
 										Model model) {
-		
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("userDTO", userDTO);
 			return "authentication/registration";
@@ -42,9 +41,9 @@ public class RegistrationController {
 		try{
 			userService.register(userDTO);
 		} catch (Exception e) { //TODO: Add a proper UserAlreadyExistException
-			bindingResult.rejectValue("email", "userDTO.email", "An account has already been registered with that email.");
+			bindingResult.rejectValue("email", "userDTO.email", "An account has already been registered with that email. TODO: All errors go here, add more error handling");
 			model.addAttribute("userDTO", userDTO);
-			return "registration";
+			return "authentication/registration";
 		}
 		
 		return "redirect:user";
