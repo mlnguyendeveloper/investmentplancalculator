@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -44,7 +45,12 @@ public class User {
 			joinColumns=@JoinColumn(name="user_id"),
 			inverseJoinColumns=@JoinColumn(name="authority_id"))
 	private List<Authority> authorities;
-
+	
+	@OneToMany(cascade=CascadeType.ALL,
+			fetch=FetchType.LAZY)
+	@JoinColumn(name="plan_id")
+	private List<Plan> plans;
+	
 	@Column(name="enabled")
 	private boolean enabled;
 	
@@ -57,6 +63,16 @@ public class User {
 		this.password = password;
 		this.email = email;
 		this.authorities = authorities;
+		this.enabled = enabled;
+	}
+	
+	public User(String username, String password, String email, List<Authority> authorities, List<Plan> plans,
+			boolean enabled) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.authorities = authorities;
+		this.plans = plans;
 		this.enabled = enabled;
 	}
 
@@ -103,6 +119,14 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+	
+	public List<Plan> getPlans() {
+		return plans;
+	}
+
+	public void setPlans(List<Plan> plans) {
+		this.plans = plans;
+	}
 
 	public void addAuthority(Authority authority) {
 		if (authorities == null) {
@@ -110,10 +134,18 @@ public class User {
 		}
 		authorities.add(authority);
 	}
+	
+	public void addPlan(Plan plan) {
+		if (plans == null) {
+			plans = new ArrayList<>();
+		}
+		plans.add(plan);
+	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + username + ", password=" + password + ", email=" + email
-				+ ", authorities=" + authorities + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", authorities=" + authorities.size() + ", plans=" + plans.size() + ", enabled=" + enabled + "]";
 	}
+
 }
