@@ -15,7 +15,8 @@ public class HomeController {
 	}
 	
 	@GetMapping("/")
-	public String home() {
+	public String getHome(Model model) {
+		model.addAttribute("activePage", "home");
 		return "index";
 	}
 	
