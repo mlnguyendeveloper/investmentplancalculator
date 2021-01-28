@@ -15,11 +15,49 @@
 
 	<div th:replace="~{fragments/navigation :: navigation}"></div>
 		
-	<br>
+
 	<div class="container-fluid">
-		<h3>Home page</h3>
+		<div class="py-5">
+			<h1>Financial Planner</h1>
+		</div>
 		
-		<br>
+		<div>
+			<table class="table table-bordered table-striped">
+			  <thead class="table-dark">
+			    <tr>
+			      <th scope="col"></th>
+			      <th scope="col">Plan name</th>
+			      <th scope="col">Description</th>
+			      <th scope="col">Action</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr th:each="tempPlan : ${plans}" th:if="${tempPlan.id != null}">
+					
+					<td th:text="${plans.index}" />	
+					<td th:text="${plans.name}" />	
+					<td th:text="${plans.description}" />	
+					
+					<!-- Add "update" button/link -->
+					<td>
+						<a th:href="@{/employees/showFormForUpdate(planId=${tempPlan.id})}"
+						   class="btn btn-info btn-sm">
+							Edit
+						</a>
+					</td>
+					
+			    </tr>
+			   
+			  </tbody>
+			  
+			</table>
+			<a th:href="@{/calculator/addPlan}" class="btn btn-info btn-lg">
+				Add
+			</a>
+		</div>
+
+
+
 		<hr>
 
 		<form action="#" th:action="@{/logout}"  method="post">
