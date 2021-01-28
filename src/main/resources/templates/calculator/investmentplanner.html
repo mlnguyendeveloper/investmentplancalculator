@@ -9,15 +9,26 @@
 	
 	<title>Financial Planner</title>
 </head>
-<body>
-	
-	
-	<div class="container">
 
+	
+<body class="d-flex flex-column min-vh-100">
+
+	<div th:replace="~{fragments/navigation :: navigation}"></div>
 		
+	<br>
+	<div class="container-fluid">
+		<h3>Home page</h3>
+		
+		<br>
+		<hr>
+
+		<form action="#" th:action="@{/logout}"  method="post">
+		   	<input type="submit" value="log out" />
+		</form>
+	
 	</div>
 	
-	
-	
+	<div th:replace="~{fragments/footer :: footer}"></div>
+
 </body>
 </html>
