@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	
+	<title>Add a new plan</title>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+	<div th:replace="~{fragments/navigation :: navigation}"></div>
+	
+	<div class="container-fluid">
+		<div class="py-5">
+			<h1>Add a new Plan</h1>
+		</div>
+		
+		<form class="form-signin" action="#" th:action="@{calculator/addPlan}" th:object="${planDTO}" method="POST">
+			
+			<div class="form-row">
+				<div class="form-group col-md-6">
+				    <label for="inputName">Name</label>
+				    <input type="text" class="form-control" id="inputName" placeholder="name"
+				    th:field="*{name}">
+				    
+				    <p th:each="error: ${#fields.errors('name')}" 
+			          th:text="${error}">Invalid Name</p>
+			        <br>
+				</div>
+			</div>
+			
+			<div class="form-row">
+				<div class="form-group col-md-6">
+				    <label for="inputName">Name</label>
+				    <textarea class="form-control" id="inputDescription" placeholder="description"
+				    th:field="*{description}" rows="3"></textarea>
+				    
+				    <p th:each="error: ${#fields.errors('description')}" 
+			          th:text="${error}">Invalid Name</p>
+			        <br>
+				</div>
+			</div>
+			
+			<button type="submit" class="btn btn-primary mb-2">Add plan</button>
+		</form>
+		
+	</div>
+	
+	
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
