@@ -3,10 +3,15 @@ package com.mlnguyendev.investmentplancalculator.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mlnguyendev.investmentplancalculator.dao.IPlanRepository;
 import com.mlnguyendev.investmentplancalculator.model.Plan;
+import com.mlnguyendev.investmentplancalculator.model.PlanDTO;
+import com.mlnguyendev.investmentplancalculator.model.User;
 
 public class PlanService implements IPlanService {
 
@@ -58,4 +63,18 @@ public class PlanService implements IPlanService {
 		planRepository.deleteById(id);
 	}
 
+	@Override
+	@Transactional
+	public void createPlan(PlanDTO planDTO, User user) {
+		Plan plan = new Plan();
+		
+		//Set properties from the PlanDTO
+		BeanUtils.copyProperties(planDTO, plan);
+		
+		//Saves the newly created plan
+		planRepository.save(plan);
+		
+		//Updates the user with a new plan
+		user.addPlan(plan);
+	}
 }
