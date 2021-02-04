@@ -3,21 +3,28 @@ package com.mlnguyendev.investmentplancalculator.controllers;
 import java.security.Principal;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.mlnguyendev.investmentplancalculator.model.Plan;
+import com.mlnguyendev.investmentplancalculator.model.PlanDTO;
 import com.mlnguyendev.investmentplancalculator.model.User;
+import com.mlnguyendev.investmentplancalculator.service.PlanService;
 import com.mlnguyendev.investmentplancalculator.service.UserService;
 
 @Controller
 public class CalculatorController {
 
 	UserService userService;
-	
-	public CalculatorController(UserService userService) {
+	PlanService planService;
+	public CalculatorController(UserService userService, PlanService planService) {
 		this.userService = userService;
+		this.planService = planService;
 	}
 	
 	@GetMapping("/calculator")
@@ -39,8 +46,32 @@ public class CalculatorController {
 	}
 	
 	@GetMapping("/calculator/addPlan")
-	public String addPlan() {
+	public String addPlan(Model model) {
 		
-		return null;
+		model.addAttribute("planDTO", new PlanDTO());
+		
+		return "calculator/add-plan";
+	}
+	
+	@PostMapping("/calculator/addPlan")
+	public String addPlanSubmission(@Valid PlanDTO planDTO,
+										BindingResult bindingResult,
+										Model model,
+										Principal principal) {
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("planDTO", planDTO);
+			return "calculator/addPlan";
+		}
+		
+		try{
+			User currentUser = userService.findByUsername(principal.getName());
+			planService.createPlan(planDTO, currentUser);
+		} catch (Exception e) { //TODO: Add a proper UserAlreadyExistException
+			bindingResult.rejectValue("email", "userDTO.email", "An account has already been registered with that email. TODO: All errors go here, add more error handling");
+			model.addAttribute("planDTO", planDTO);
+			return "calculator/addPlan";
+		}
+		
+		return "redirect:calculator/addPlan";
 	}
 }
