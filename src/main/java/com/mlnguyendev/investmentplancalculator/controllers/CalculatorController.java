@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mlnguyendev.investmentplancalculator.model.Plan;
 import com.mlnguyendev.investmentplancalculator.model.PlanDTO;
@@ -80,4 +81,22 @@ public class CalculatorController {
 		
 		return "redirect:/calculator";
 	}
+	
+	
+	@GetMapping("/calculator/planFinance")
+	public String planFinance(@RequestParam("planId") int theId,
+									Model theModel) {
+		
+		Plan plan = planService.findById(theId);
+		
+		// set plan as a model attribute to pre-populate the form
+		theModel.addAttribute("plan", plan);
+		
+		// send over to our form
+		return "calculator/plan";			
+	}
 }
+
+
+
+
