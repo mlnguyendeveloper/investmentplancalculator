@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,10 @@ public class CalculatorController {
 
 	UserService userService;
 	PlanService planService;
+	
+	public CalculatorController() {}
+	
+	@Autowired
 	public CalculatorController(UserService userService, PlanService planService) {
 		this.userService = userService;
 		this.planService = planService;
@@ -66,12 +71,13 @@ public class CalculatorController {
 		try{
 			User currentUser = userService.findByUsername(principal.getName());
 			planService.createPlan(planDTO, currentUser);
-		} catch (Exception e) { //TODO: Add a proper UserAlreadyExistException
-			bindingResult.rejectValue("email", "userDTO.email", "An account has already been registered with that email. TODO: All errors go here, add more error handling");
+			
+		} catch (Exception e) { //TODO: Add a proper Plan exception
+			bindingResult.rejectValue("name", "planDTO.name", "An account has already been registered with that email. TODO: All errors go here, add more error handling");
 			model.addAttribute("planDTO", planDTO);
 			return "calculator/addPlan";
 		}
 		
-		return "redirect:calculator/addPlan";
+		return "redirect:/calculator";
 	}
 }

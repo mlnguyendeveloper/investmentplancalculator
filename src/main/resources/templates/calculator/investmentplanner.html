@@ -32,11 +32,11 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr th:each="tempPlan : ${plans}" th:if="${tempPlan.id != null}">
+			    <tr th:each="tempPlan, iterStat : ${plans}" th:if="${tempPlan.id != null}">
 					
-					<td th:text="${plans.index}" />	
-					<td th:text="${plans.name}" />	
-					<td th:text="${plans.description}" />	
+					<td th:text="${iterStat.count}" />	
+					<td th:text="${tempPlan.name}" />	
+					<td th:text="${tempPlan.description}" />	
 					
 					<!-- Add "update" button/link -->
 					<td>

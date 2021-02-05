@@ -7,12 +7,14 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mlnguyendev.investmentplancalculator.dao.IPlanRepository;
 import com.mlnguyendev.investmentplancalculator.model.Plan;
 import com.mlnguyendev.investmentplancalculator.model.PlanDTO;
 import com.mlnguyendev.investmentplancalculator.model.User;
 
+@Service
 public class PlanService implements IPlanService {
 
 	private IPlanRepository planRepository;
