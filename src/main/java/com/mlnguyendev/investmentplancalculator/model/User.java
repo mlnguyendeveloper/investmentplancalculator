@@ -48,7 +48,7 @@ public class User {
 	
 	@OneToMany(cascade=CascadeType.ALL,
 			fetch=FetchType.LAZY)
-	@JoinColumn(name="plan_id")
+	@JoinColumn(name="user_id", referencedColumnName="id")
 	private List<Plan> plans;
 	
 	@Column(name="enabled")
