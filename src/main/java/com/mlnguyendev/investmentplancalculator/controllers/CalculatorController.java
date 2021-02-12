@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mlnguyendev.investmentplancalculator.model.Plan;
 import com.mlnguyendev.investmentplancalculator.model.PlanDTO;
+import com.mlnguyendev.investmentplancalculator.model.Step;
 import com.mlnguyendev.investmentplancalculator.model.User;
 import com.mlnguyendev.investmentplancalculator.service.PlanService;
 import com.mlnguyendev.investmentplancalculator.service.UserService;
@@ -89,7 +90,11 @@ public class CalculatorController {
 		
 		Plan plan = planService.findById(theId);
 		
-		// set plan as a model attribute to pre-populate the form
+		// set plan as a model attribute, ensure it has at least 1 step, to pre-populate the form
+		if (plan.getSteps().size() == 0) {
+			plan.addStep(new Step());
+		}
+		
 		theModel.addAttribute("plan", plan);
 		
 		// send over to our form
