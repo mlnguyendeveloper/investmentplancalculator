@@ -16,71 +16,82 @@
 		
 
 	<div class="container-fluid">
-		<div class="py-3">
-			<h1>Financial Planner</h1>
-		</div>
-		
-		
-		<div class="card text-white bg-info mb-6" style="max-width: 24rem;">
-		  <div class="card-header">Step 1</div>
-		  <div class="card-body">
-		    <h5 class="card-title">Info card title</h5>
-		    
-		    <div class="row py-1"> 
-			    
-			    <div class="col-sm">
-			    	<label for="inputStartingAmount">Starting Amount</label>
-				    
-			    </div>
-			    
-			    <div class="col-sm">
-			    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Starting Amount">
-			    </div>
-		    </div>
-		    
-		    <div class="row py-1"> 
-			    <div class="col-sm">
-				    <label for="inputDuration">Duration</label>
-				    
-			    </div>
-			    
-			    <div class="col-sm">
-			    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Years">
-				    <!-- th:field="*{startingAmount}" --> 
-			    </div>
-		    </div>
-		    
-		    <div class="row py-1"> 
-			    <div class="col-sm">
-				    <label for="inputReturnRate">Return Rate</label>
-			    </div>
-			    
-			    <div class="col-sm">
-			    	<input type="text" class="form-control" id="inputReturnRate" placeholder="%">
-				    <!-- th:field="*{startingAmount}" --> 
-			    </div>
-		    </div>
-		    
-		    <div class="row py-1"> 
-			    <div class="col-sm">
-				    <label for="inputAdditionalContribution">Additional Contribution</label>
-			    </div>
-			    
-			    <div class="col-sm">
-			    	<input type="text" class="form-control" id="inputAdditionalContribution" placeholder="$">
-				    <!-- th:field="*{startingAmount}" --> 
-			    </div>
-		    </div>
-		    
-		  </div>
-		  
-		  <div class="card-footer">
-	        <div class="btn-group d-flex btn-group-sm" role="group" aria-label="Basic example">
-			  <a class="btn btn-success">Add</a>
-			  <a class="btn btn-danger">Remove</a>
+	
+		<div class="row">
+			<div class="py-3">
+				<h1>Financial Planner</h1>
 			</div>
-      	  </div>
-      	  
+		</div>
+
+		
+		<div class="row">
+			
+			<div class="col-sm-3">
+				<div class="card text-white bg-info mb-6" style="max-width: 24rem;">
+				  <div class="card-header">Step 1</div>
+				  <div class="card-body">
+				    <h5 class="card-title">Info card title</h5>
+				    
+				    <div class="row py-1"> 
+					    
+					    <div class="col-sm">
+					    	<label for="inputStartingAmount">Starting Amount</label>
+						    
+					    </div>
+					    
+					    <div class="col-sm">
+					    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Starting Amount">
+					    </div>
+				    </div>
+				    
+				    <div class="row py-1"> 
+					    <div class="col-sm">
+						    <label for="inputDuration">Duration</label>
+						    
+					    </div>
+					    
+					    <div class="col-sm">
+					    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Years">
+						    <!-- th:field="*{startingAmount}" --> 
+					    </div>
+				    </div>
+				    
+				    <div class="row py-1"> 
+					    <div class="col-sm">
+						    <label for="inputReturnRate">Return Rate</label>
+					    </div>
+					    
+					    <div class="col-sm">
+					    	<input type="text" class="form-control" id="inputReturnRate" placeholder="%">
+						    <!-- th:field="*{startingAmount}" --> 
+					    </div>
+				    </div>
+				    
+				    <div class="row py-1"> 
+					    <div class="col-sm">
+						    <label for="inputAdditionalContribution">Additional Contribution</label>
+					    </div>
+					    
+					    <div class="col-sm">
+					    	<input type="text" class="form-control" id="inputAdditionalContribution" placeholder="$">
+						    <!-- th:field="*{startingAmount}" --> 
+					    </div>
+				    </div>
+				    
+				  </div>
+	
+			  
+				  <div class="card-footer">
+			        <div class="btn-group d-flex btn-group-sm" role="group" aria-label="Basic example">
+					  <a class="btn btn-success">Add</a>
+					  <a class="btn btn-danger">Remove</a>
+					</div>
+		      	  </div>
+	      	  	</div>
+      	  	</div>
+      	  	
+      	  	<div class="col-sm-3"><!-- Placeholder for graph --></div>
+      	  	<div class="col-sm-6"><!-- Placeholder for table --></div>
 		</div>
 		
 		<div class="row py-1">
