@@ -89,5 +89,12 @@ public class Step {
 	public void setContributionTiming(int contributionTiming) {
 		this.contributionTiming = contributionTiming;
 	}
+
+	@Override
+	public String toString() {
+		return "Step [id=" + id + ", startingAmount=" + startingAmount + ", duration=" + duration + ", returnRate="
+				+ returnRate + ", additionalContribution=" + additionalContribution + ", contributionTiming="
+				+ contributionTiming + "]";
+	}
 	
 }
