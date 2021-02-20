@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mlnguyendev.investmentplancalculator.model.Plan;
-import com.mlnguyendev.investmentplancalculator.model.PlanDTO;
 import com.mlnguyendev.investmentplancalculator.model.Step;
 import com.mlnguyendev.investmentplancalculator.model.User;
 import com.mlnguyendev.investmentplancalculator.service.PlanService;
@@ -37,8 +36,8 @@ public class CalculatorController {
 	@GetMapping("/calculator")
 	public String getCalculator(Model model, Principal principal) {
 		
+		//to be used in the navbar
 		model.addAttribute("activePage", "calculator");
-		
 		
 		//Get the currently logged user's plans to display.
 		User currentUser = userService.findByUsername(principal.getName());
@@ -55,28 +54,30 @@ public class CalculatorController {
 	@GetMapping("/calculator/addPlan")
 	public String addPlan(Model model) {
 		
-		model.addAttribute("planDTO", new PlanDTO());
+		model.addAttribute("plan", new Plan());
 		
 		return "calculator/add-plan";
 	}
 	
 	@PostMapping("/calculator/addPlan")
-	public String addPlanSubmission(@Valid PlanDTO planDTO,
+	public String addPlanSubmission(@Valid Plan plan,
 										BindingResult bindingResult,
 										Model model,
 										Principal principal) {
 		if (bindingResult.hasErrors()) {
-			model.addAttribute("planDTO", planDTO);
+			model.addAttribute("plan", plan);
 			return "calculator/addPlan";
 		}
 		
 		try{
 			User currentUser = userService.findByUsername(principal.getName());
-			planService.createPlan(planDTO, currentUser);
+			planService.save(plan);
+			currentUser.addPlan(plan);
+			userService.save(currentUser);
 			
 		} catch (Exception e) { //TODO: Add a proper Plan exception
-			bindingResult.rejectValue("name", "planDTO.name", "An account has already been registered with that email. TODO: All errors go here, add more error handling");
-			model.addAttribute("planDTO", planDTO);
+			bindingResult.rejectValue("name", "plan.name", "An account has already been registered with that email. TODO: All errors go here, add more error handling");
+			model.addAttribute("plan", plan);
 			return "calculator/addPlan";
 		}
 		
@@ -94,7 +95,7 @@ public class CalculatorController {
 		if (plan.getSteps().size() == 0) {
 			plan.addStep(new Step());
 		}
-		
+		System.out.println(plan.getSteps().get(0));
 		theModel.addAttribute("plan", plan);
 		
 		// send over to our form
