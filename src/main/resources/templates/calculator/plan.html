@@ -26,8 +26,8 @@
 		
 		<div class="row">
 			
-			<div class="col-sm-3">
-				<div class="card text-white bg-info mb-6" style="max-width: 24rem;">
+			<div class="col-sm-3" th:each="step, iterStat : ${plan.steps}">
+				<div class="card text-white bg-info">
 				  <div class="card-header">Step 1</div>
 				  <div class="card-body">
 				    <h5 class="card-title">Info card title</h5>
@@ -40,7 +40,8 @@
 					    </div>
 					    
 					    <div class="col-sm">
-					    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Starting Amount">
+					    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Starting Amount" 
+					    		th:value="${step.startingAmount} !='0.0' ? ${step.startingAmount}:''">
 					    </div>
 				    </div>
 				    
@@ -51,8 +52,8 @@
 					    </div>
 					    
 					    <div class="col-sm">
-					    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Years">
-						    <!-- th:field="*{startingAmount}" --> 
+					    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Years"
+					    		th:value="${step.duration} !='0' ? ${step.duration}:''">
 					    </div>
 				    </div>
 				    
@@ -62,8 +63,8 @@
 					    </div>
 					    
 					    <div class="col-sm">
-					    	<input type="text" class="form-control" id="inputReturnRate" placeholder="%">
-						    <!-- th:field="*{startingAmount}" --> 
+					    	<input type="text" class="form-control" id="inputReturnRate" placeholder="%"
+					    		th:value="${step.returnRate} !='0.0' ? ${step.returnRate}:''">
 					    </div>
 				    </div>
 				    
@@ -73,9 +74,31 @@
 					    </div>
 					    
 					    <div class="col-sm">
-					    	<input type="text" class="form-control" id="inputAdditionalContribution" placeholder="$">
-						    <!-- th:field="*{startingAmount}" --> 
+					    	<input type="text" class="form-control" id="inputAdditionalContribution" placeholder="$"
+					    		th:value="${step.additionalContribution} !='0.0' ? ${step.additionalContribution}:''">
 					    </div>
+				    </div>
+				    
+				     <div class="row py-1"> 
+					    <div class="col-sm">
+						    <label for="contributionTiming">Contribution Timing</label>
+					    </div>
+					    
+					    <div class="col-sm">
+					    	<div class="form-check">
+							  <input class="form-check-input" type="radio" name="radioContributionTiming" id="radioMonthlyContribution" checked>
+							  <label class="form-check-label" for="radioMonthlyContribution">
+							    Monthly
+							  </label>
+							</div>
+							<div class="form-check">
+							  <input class="form-check-input" type="radio" name="radioContributionTiming" id="radioYearlyContribution">
+							  <label class="form-check-label" for="radioYearlyContribution">
+							    Yearly
+							  </label>
+							</div>
+					    </div>
+						
 				    </div>
 				    
 				  </div>
