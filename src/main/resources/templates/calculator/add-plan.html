@@ -18,13 +18,13 @@
 			<h1>Add a new Plan</h1>
 		</div>
 		
-		<form class="form-signin" action="#" th:action="@{/calculator/addPlan}" th:object="${planDTO}" method="POST">
+		<form class="form-signin" action="#" th:action="@{/calculator/addPlan}" th:object="${plan}" method="POST">
 			
 			<div class="form-row">
 				<div class="form-group col-md-6">
 				    <label for="inputName">Name</label>
 				    <input type="text" class="form-control" id="inputName" placeholder="name"
-				    th:field="*{name}">
+				    	th:field="*{name}">
 				    
 				    <p th:each="error: ${#fields.errors('name')}" 
 			          th:text="${error}">Invalid Name</p>
