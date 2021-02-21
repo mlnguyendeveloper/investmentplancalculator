@@ -23,99 +23,108 @@
 			</div>
 		</div>
 
-		
-		<div class="row">
+		<div th:each="step, iterStat : ${plan.steps}">
 			
-			<div class="col-sm-3" th:each="step, iterStat : ${plan.steps}">
-				<div class="card text-white bg-info">
-				  <div class="card-header">Step 1</div>
-				  <div class="card-body">
-				    <h5 class="card-title">Info card title</h5>
-				    
-				    <div class="row py-1"> 
+			<div class="row py-3">
+			
+				<div class="col-sm-3">
+					<div class="card text-white bg-info">
+					  <div class="card-header">
+					  	<label th:text="'Step ' + ${iterStat.count}"></label>
+					  </div>
+					  <div class="card-body">
+					    <h5 class="card-title">Info card title</h5>
 					    
-					    <div class="col-sm">
-					    	<label for="inputStartingAmount">Starting Amount</label>
+					    <div th:if="${iterStat.count}==1" class="row py-1"> 
 						    
-					    </div>
-					    
-					    <div class="col-sm">
-					    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Starting Amount" 
-					    		th:value="${step.startingAmount} !='0.0' ? ${step.startingAmount}:''">
-					    </div>
-				    </div>
-				    
-				    <div class="row py-1"> 
-					    <div class="col-sm">
-						    <label for="inputDuration">Duration</label>
+						    <div class="col-sm">
+						    	<label for="inputStartingAmount">Starting Amount</label>
+							    
+						    </div>
 						    
+						    <div class="col-sm">
+						    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Starting Amount" 
+						    		th:value="${step.startingAmount} !='0.0' ? ${step.startingAmount}:''">
+						    </div>
 					    </div>
 					    
-					    <div class="col-sm">
-					    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Years"
-					    		th:value="${step.duration} !='0' ? ${step.duration}:''">
-					    </div>
-				    </div>
-				    
-				    <div class="row py-1"> 
-					    <div class="col-sm">
-						    <label for="inputReturnRate">Return Rate</label>
-					    </div>
-					    
-					    <div class="col-sm">
-					    	<input type="text" class="form-control" id="inputReturnRate" placeholder="%"
-					    		th:value="${step.returnRate} !='0.0' ? ${step.returnRate}:''">
-					    </div>
-				    </div>
-				    
-				    <div class="row py-1"> 
-					    <div class="col-sm">
-						    <label for="inputAdditionalContribution">Additional Contribution</label>
+					    <div class="row py-1"> 
+						    <div class="col-sm">
+							    <label for="inputDuration">Duration</label>
+							    
+						    </div>
+						    
+						    <div class="col-sm">
+						    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Years"
+						    		th:value="${step.duration} !='0' ? ${step.duration}:''">
+						    </div>
 					    </div>
 					    
-					    <div class="col-sm">
-					    	<input type="text" class="form-control" id="inputAdditionalContribution" placeholder="$"
-					    		th:value="${step.additionalContribution} !='0.0' ? ${step.additionalContribution}:''">
-					    </div>
-				    </div>
-				    
-				     <div class="row py-1"> 
-					    <div class="col-sm">
-						    <label for="contributionTiming">Contribution Timing</label>
+					    <div class="row py-1"> 
+						    <div class="col-sm">
+							    <label for="inputReturnRate">Return Rate</label>
+						    </div>
+						    
+						    <div class="col-sm">
+						    	<input type="text" class="form-control" id="inputReturnRate" placeholder="%"
+						    		th:value="${step.returnRate} !='0.0' ? ${step.returnRate}:''">
+						    </div>
 					    </div>
 					    
-					    <div class="col-sm">
-					    	<div class="form-check">
-							  <input class="form-check-input" type="radio" name="radioContributionTiming" id="radioMonthlyContribution" checked>
-							  <label class="form-check-label" for="radioMonthlyContribution">
-							    Monthly
-							  </label>
-							</div>
-							<div class="form-check">
-							  <input class="form-check-input" type="radio" name="radioContributionTiming" id="radioYearlyContribution">
-							  <label class="form-check-label" for="radioYearlyContribution">
-							    Yearly
-							  </label>
-							</div>
+					    <div class="row py-1"> 
+						    <div class="col-sm">
+							    <label for="inputAdditionalContribution">Additional Contribution</label>
+						    </div>
+						    
+						    <div class="col-sm">
+						    	<input type="text" class="form-control" id="inputAdditionalContribution" placeholder="$"
+						    		th:value="${step.additionalContribution} !='0.0' ? ${step.additionalContribution}:''">
+						    </div>
 					    </div>
-						
-				    </div>
-				    
-				  </div>
-	
-			  
-				  <div class="card-footer">
-			        <div class="btn-group d-flex btn-group-sm" role="group" aria-label="Basic example">
-					  <a class="btn btn-success">Add</a>
-					  <a class="btn btn-danger">Remove</a>
-					</div>
-		      	  </div>
+					    
+					     <div class="row py-1"> 
+						    <div class="col-sm">
+							    <label for="contributionTiming">Contribution Timing</label>
+						    </div>
+						    
+						    <div class="col-sm">
+						    	<div class="form-check">
+								  <input class="form-check-input" type="radio" th:name="'radioContributionTiming' + ${step.id}" th:id="'radioMonthlyContribution' + ${step.id}" checked>
+								  <label class="form-check-label" th:for="'radioMonthlyContribution' + ${step.id}">
+								    Monthly
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="radio" th:name="'radioContributionTiming' + ${step.id}" th:id="'radioYearlyContribution' + ${step.id}">
+								  <label class="form-check-label" th:for="'radioYearlyContribution' + ${step.id}">
+								    Yearly
+								  </label>
+								</div>
+						    </div>
+							
+					    </div>
+					    
+					  </div>
+		
+				  
+					  <div class="card-footer">
+				        <div class="btn-group d-flex btn-group-sm" role="group" aria-label="Basic example">
+						  <a th:href="@{/calculator/planFinance/addStep(planId=${plan.id}, stepIndex=${iterStat.count})}" 
+						  	class="btn btn-success">Add</a>
+						  	
+						  <a th:href="@{/calculator/planFinance/removeStep(planId=${plan.id}, stepIndex=${iterStat.count})}" 
+						  	class="btn btn-danger">Remove</a>
+						</div>
+			      	  </div>
+		      	  	</div>
 	      	  	</div>
-      	  	</div>
-      	  	
-      	  	<div class="col-sm-3"><!-- Placeholder for graph --></div>
-      	  	<div class="col-sm-6"><!-- Placeholder for table --></div>
+	      	  	
+	      	  	<div class="col-sm-3"><!-- Placeholder for graph --></div>
+	      	  	<div class="col-sm-6"><!-- Placeholder for table --></div>
+			</div>
 		</div>
+		
+		
 		
 		<div class="row py-1">
 			<div>
