@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mlnguyendev.investmentplancalculator.model.Plan;
 import com.mlnguyendev.investmentplancalculator.model.Step;
@@ -94,12 +95,45 @@ public class CalculatorController {
 		// set plan as a model attribute, ensure it has at least 1 step, to pre-populate the form
 		if (plan.getSteps().size() == 0) {
 			plan.addStep(new Step());
+			planService.save(plan);
 		}
-		System.out.println(plan.getSteps().get(0));
+
 		theModel.addAttribute("plan", plan);
 		
 		// send over to our form
 		return "calculator/plan";			
+	}
+	
+	@GetMapping("/calculator/planFinance/addStep")
+	public String addStep(@RequestParam("planId") int planId,
+							@RequestParam("stepIndex") int stepIndex,
+									Model theModel,
+									RedirectAttributes redirectAttributes) {
+		
+		Plan plan = planService.findById(planId);
+		
+		plan.addStep(stepIndex, new Step());
+		planService.save(plan);
+
+		theModel.addAttribute("plan", plan);
+		redirectAttributes.addAttribute("planId", planId);
+		return "redirect:/calculator/planFinance";
+	}
+	
+	@GetMapping("/calculator/planFinance/removeStep")
+	public String removeStep(@RequestParam("planId") int planId,
+								@RequestParam("stepIndex") int stepIndex,
+									Model theModel,
+									RedirectAttributes redirectAttributes) {
+		
+		Plan plan = planService.findById(planId);
+		
+		plan.removeStep(stepIndex - 1);
+		planService.save(plan);
+
+		theModel.addAttribute("plan", plan);
+		redirectAttributes.addAttribute("planId", planId);
+		return "redirect:/calculator/planFinance";
 	}
 }
 
