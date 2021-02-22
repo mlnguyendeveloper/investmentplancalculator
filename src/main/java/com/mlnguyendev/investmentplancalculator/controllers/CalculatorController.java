@@ -104,37 +104,38 @@ public class CalculatorController {
 		return "calculator/plan";			
 	}
 	
-	@GetMapping("/calculator/planFinance/addStep")
-	public String addStep(@RequestParam("planId") int planId,
+	@PostMapping("/calculator/planFinance/steps")
+	public String saveSteps(@Valid Plan plan,
+							BindingResult bindingResult,
+							Model model,
+							Principal principal,
 							@RequestParam("stepIndex") int stepIndex,
-									Model theModel,
-									RedirectAttributes redirectAttributes) {
+							@RequestParam("action") String action,
+							RedirectAttributes redirectAttributes) {
 		
-		Plan plan = planService.findById(planId);
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("plan", plan);
+			return "redirect:/calculator/planFinance";
+		}
 		
-		plan.addStep(stepIndex, new Step());
-		planService.save(plan);
-
-		theModel.addAttribute("plan", plan);
-		redirectAttributes.addAttribute("planId", planId);
+		switch(action) {
+			case "add":
+				plan.addStep(stepIndex, new Step());
+				planService.save(plan);
+				break;
+			case "remove":
+				plan.removeStep(stepIndex - 1);
+				planService.save(plan);
+				break;
+			default:
+				break;
+		}
+		
+		model.addAttribute("plan", plan);
+		redirectAttributes.addAttribute("planId", plan.getId());
 		return "redirect:/calculator/planFinance";
 	}
 	
-	@GetMapping("/calculator/planFinance/removeStep")
-	public String removeStep(@RequestParam("planId") int planId,
-								@RequestParam("stepIndex") int stepIndex,
-									Model theModel,
-									RedirectAttributes redirectAttributes) {
-		
-		Plan plan = planService.findById(planId);
-		
-		plan.removeStep(stepIndex - 1);
-		planService.save(plan);
-
-		theModel.addAttribute("plan", plan);
-		redirectAttributes.addAttribute("planId", planId);
-		return "redirect:/calculator/planFinance";
-	}
 }
 
 
