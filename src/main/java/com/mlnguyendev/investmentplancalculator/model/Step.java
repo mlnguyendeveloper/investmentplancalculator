@@ -29,12 +29,14 @@ public class Step {
 	private double additionalContribution;
 	
 	@Column(name="contribution_timing")
-	private int contributionTiming;
+	private String contributionTiming;
 	
-	public Step() {}
+	public Step() {
+		contributionTiming = "monthly"; //by default
+	}
 
 	public Step(double startingAmount, int duration, double returnRate, double additionalContribution,
-			int contributionTiming) {
+			String contributionTiming) {
 		this.startingAmount = startingAmount;
 		this.duration = duration;
 		this.returnRate = returnRate;
@@ -82,11 +84,11 @@ public class Step {
 		this.additionalContribution = additionalContribution;
 	}
 
-	public int getContributionTiming() {
+	public String getContributionTiming() {
 		return contributionTiming;
 	}
 
-	public void setContributionTiming(int contributionTiming) {
+	public void setContributionTiming(String contributionTiming) {
 		this.contributionTiming = contributionTiming;
 	}
 
