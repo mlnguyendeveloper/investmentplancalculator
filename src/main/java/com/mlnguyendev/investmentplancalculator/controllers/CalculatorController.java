@@ -97,7 +97,7 @@ public class CalculatorController {
 			plan.addStep(new Step());
 			planService.save(plan);
 		}
-
+		
 		theModel.addAttribute("plan", plan);
 		
 		// send over to our form
@@ -109,22 +109,25 @@ public class CalculatorController {
 							BindingResult bindingResult,
 							Model model,
 							Principal principal,
-							@RequestParam("stepIndex") int stepIndex,
 							@RequestParam("action") String action,
 							RedirectAttributes redirectAttributes) {
-		
+
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("plan", plan);
 			return "redirect:/calculator/planFinance";
 		}
+
+		String[] actionAndIndex = action.split(",");
+		String actionValue = actionAndIndex[0];
+		int indexValue = Integer.parseInt(actionAndIndex[1]);
 		
-		switch(action) {
+		switch(actionValue) {
 			case "add":
-				plan.addStep(stepIndex, new Step());
+				plan.addStep(indexValue + 1, new Step());
 				planService.save(plan);
 				break;
 			case "remove":
-				plan.removeStep(stepIndex - 1);
+				plan.removeStep(indexValue);
 				planService.save(plan);
 				break;
 			default:
@@ -133,6 +136,7 @@ public class CalculatorController {
 		
 		model.addAttribute("plan", plan);
 		redirectAttributes.addAttribute("planId", plan.getId());
+
 		return "redirect:/calculator/planFinance";
 	}
 	
