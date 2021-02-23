@@ -7,7 +7,7 @@
 	
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 	
-	<title>rename this</title>
+	<title>Investment Return Estimator</title>
 </head>
 <body class="d-flex flex-column min-vh-100">
 	
@@ -24,6 +24,57 @@
 		</div>
 		
 		<form action="#" th:action="@{/calculator/planFinance/steps}" th:object="${plan}" method="post">
+		
+			<input type="text" class="form-control" id="inputId" 
+							    		th:value="${plan.id}"
+							    		th:field="*{id}" hidden="true">
+							    		
+		    <div class="row">
+				<div class="col-sm-3">
+					<div class="card text-white bg-info">
+					  <div class="card-header">
+					  	<label th:text="'Plan Details'"></label>
+					  </div>
+					<div class="card-body">
+					    
+						<div class="row py-1"> 
+						    <div class="col-sm">
+								<label for="inputName">Plan Name</label>
+							</div>
+						    <div class="col-sm">
+						    	<input type="text" class="form-control" id="inputName" placeholder="Name" 
+						    		th:value="${plan.name}"
+						    		th:field="*{name}">
+						    </div>
+					    </div>
+					    
+					    <div class="row py-1"> 
+						    <div class="col-sm">
+								<label for="inputDescription">Description</label>
+							</div>
+						    <div class="col-sm">
+						    	<textarea class="form-control" id="inputDescription" placeholder="Description" 
+						    		rows="3"
+						    		th:value="${plan.description}"
+						    		th:field="*{description}"></textarea>
+						    </div>
+					    </div>
+					    <hr>
+					    <div class="row py-1"> 
+						    <div class="col-sm">
+								<label for="inputDuration">Starting Amount</label>
+							</div>
+						    <div class="col-sm">
+						    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Starting Amount" 
+						    		th:value="${plan.startingAmount} !='0.0' ? ${plan.startingAmount}:''"
+						    		th:field="*{startingAmount}">
+						    </div>
+					    </div>
+				    </div>
+					</div>
+				</div>
+			</div>
+						    
 			<div th:each="step, iterStat : ${plan.steps}">
 				
 				<div class="row py-3">
@@ -36,24 +87,10 @@
 						  <div class="card-body">
 						    <h5 class="card-title">Info card title</h5>
 						    
-						    <div th:if="${iterStat.count}==1" class="row py-1"> 
-							    
-							    <div class="col-sm">
-							    	<label for="inputStartingAmount">Starting Amount</label>
-								    
-							    </div>
-							    
-							    <div class="col-sm">
-							    	<input type="text" class="form-control" id="inputStartingAmount" placeholder="Starting Amount" 
-							    		th:value="${plan.startingAmount} !='0.0' ? ${plan.startingAmount}:''"
-							    		th:field="*{startingAmount}">
-							    </div>
-						    </div>
 						    
 						    <div class="row py-1"> 
 							    <div class="col-sm">
 								    <label for="inputDuration">Duration</label>
-								    
 							    </div>
 							    
 							    <div class="col-sm">
@@ -114,9 +151,9 @@
 						  <div class="card-footer">
     						<div class="btn-group d-flex btn-group-sm" role="group">
     							<button class="btn btn-success" 
-    								type="submit" name="action" value="add">Add</button>
-    							<button th:class="${iterStat.count == 1} ? 'btn btn-danger disabled' : 'btn btn-danger'" 
-    								type="submit" name="action" value="remove">Remove</button>
+    								type="submit" name="action" th:value="'add,'+${iterStat.index}">Add</button>
+    							<button th:class="${iterStat.size == 1} ? 'btn btn-danger disabled' : 'btn btn-danger'" 
+    								type="submit" name="action" th:value="'remove,'+${iterStat.index}">Remove</button>
     						</div>
 					        <!-- <div class="btn-group d-flex btn-group-sm" role="group" aria-label="Basic example">
 							  <a th:href="@{/calculator/planFinance/steps(planId=${plan.id}, stepIndex=${iterStat.count}, action='add')}" 
